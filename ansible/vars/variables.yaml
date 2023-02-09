@@ -34,4 +34,3 @@ Python:
   Docker: docker
   # Variable para establecer el módulo de Docker Compose
   Docker_Compose: docker-compose
-
