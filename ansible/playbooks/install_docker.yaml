@@ -40,17 +40,17 @@
 
     - name: Instalación del gestor de paquetes de Python
       ansible.builtin.apt:
-        name: python3-pip
+        name: "{{ Python.Manager }}"
         state: present
 
     - name: Instalación de Docker para Python
       ansible.builtin.pip:
-        name: docker
+        name: "{{ Python.Docker }}"
         state: present
 
     - name: Instalación de Docker Compose para Python
       ansible.builtin.pip:
-        name: docker-compose
+        name: "{{ Python.Docker_Compose }}"
         state: present
 
     - name: Cambio de permisos para el directorio /var/run/docker.sock

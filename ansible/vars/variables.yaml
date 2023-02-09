@@ -25,3 +25,13 @@ Docker:
   Group: docker
   # Servicio de Docker
   Service: docker.service
+
+# Variables para Python
+Python:
+  # Variable para establecer el gestor de paquetes de Python
+  Manager: python3-pip
+  # Variable para establecer el módulo de Docker
+  Docker: docker
+  # Variable para establecer el módulo de Docker Compose
+  Docker_Compose: docker-compose
+

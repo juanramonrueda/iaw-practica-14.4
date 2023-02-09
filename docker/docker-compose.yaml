@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nginx-2048:
+    build: ./nginx
+    networks:
+      - frontend-network
+
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ssl_certs_data:/var/lib/https-portal
+    environment:
+      DOMAINS: '${WEB_DOMAIN} -> http://nginx-2048:80'
+      STAGE: 'production'
+    restart: always
+    networks: 
+      - frontend-network
+
+networks:
+  frontend-network:
+
+volumes:
+  ssl_certs_data:
