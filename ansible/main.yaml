@@ -1,0 +1,13 @@
+---
+
+- name: Instalación de Docker y Docker Compose
+  ansible.builtin.import_playbook: playbooks/install_docker.yaml
+  when: instalar | d(False) == "docker"
+
+- name: Despliegue de Docker Compose
+  ansible.builtin.import_playbook: playbooks/deploy_compose.yaml
+  when: desplegar | d(False) == "compose"
+
+- name: Eliminación del despliegue de Docker Compose
+  ansible.builtin.import_playbook: playbooks/delete_compose.yaml
+  when: borrar | d(False) == "compose"

@@ -1,0 +1,27 @@
+# Variable para el usuario y el grupo
+User:
+  Directory: /home/ubuntu
+  Name_Group: ubuntu
+
+# Tipo de instalación, para un usuario o multiusuario
+Type_Install:
+# Preparación de directorio para usar Docker Compose en un único usuario
+  User_Home: /home/ubuntu/.docker/cli-plugins
+# Preparación de directorio para usar Docker en todos los usuarios
+  Multi_User_Directory: /usr/local/lib/docker/cli-plugins
+
+# Variables para el cambio de nombre de archivo
+Compose_File:
+  # Nombre del archivo para poder usar docker compose
+  New_Name: docker-compose
+  # Ruta local de los archivos que se van a pasar a la instancia
+  Local_Files: ../../docker
+
+# Variables para Docker
+Docker:
+  # Instalación de Docker para Ubuntu Server
+  Package: docker.io
+  # Grupo de Docker
+  Group: docker
+  # Servicio de Docker
+  Service: docker.service

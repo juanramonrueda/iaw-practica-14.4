@@ -1,0 +1,72 @@
+---
+- name: Instalación de Docker y Docker Compose en la instancia
+  hosts: docker
+  become: true
+
+  tasks:
+    - name: Inclusión del archivo de variables
+      ansible.builtin.include_vars: ../vars/variables.yaml
+
+    - name: Actualización de repositorios
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Instalación de Docker
+      ansible.builtin.apt:
+        name: "{{ Docker.Package }}"
+        state: present
+
+    - name: Creación de directorio para Docker Compose
+      ansible.builtin.file:
+        path: "{{ Type_Install.User_Home }}"
+        mode: 0775
+        owner: "{{ User.Name_Group }}"
+        group: "{{ User.Name_Group }}"
+        state: directory
+
+    - name: Descarga de Docker Compose
+      ansible.builtin.get_url:
+        url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
+        dest: "{{ Type_Install.User_Home }}/{{ Compose_File.New_Name }}"
+        mode: 0775
+        owner: "{{ User.Name_Group }}"
+        group: "{{ User.Name_Group }}"
+
+    - name: Asignación del grupo Docker al usuario
+      ansible.builtin.user:
+        name: "{{ User.Name_Group }}"
+        groups: "{{ Docker.Group }}"
+        append: true
+
+    - name: Instalación del gestor de paquetes de Python
+      ansible.builtin.apt:
+        name: python3-pip
+        state: present
+
+    - name: Instalación de Docker para Python
+      ansible.builtin.pip:
+        name: docker
+        state: present
+
+    - name: Instalación de Docker Compose para Python
+      ansible.builtin.pip:
+        name: docker-compose
+        state: present
+
+    - name: Cambio de permisos para el directorio /var/run/docker.sock
+      ansible.builtin.file:
+        path: /var/run/docker.sock
+        mode: 0777
+
+    - name: Reinicio de Docker para actualizar el grupo del usuario
+      ansible.builtin.service:
+        name: "{{ Docker.Service }}"
+        state: restarted
+
+    - name: Copiado del directorio docker local a la instancia
+      ansible.builtin.copy:
+        src: "{{ Compose_File.Local_Files }}"
+        dest: "{{ User.Directory }}"
+        mode: 0775
+        owner: "{{ User.Name_Group }}"
+        group: "{{ User.Name_Group }}"
