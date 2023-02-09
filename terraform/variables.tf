@@ -1,7 +1,7 @@
 variable "instance_name" {
   description = "Nombre de la instancia de AWS"
   type        = string
-  default     = "iaw-practica-14.2-docker"
+  default     = "iaw-practica-14.4-docker"
 }
 
 variable "instance_ami" {
