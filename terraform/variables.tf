@@ -13,7 +13,7 @@ variable "instance_ami" {
 variable "ram_instance" {
   description = "Cantidad de RAM que se asigna a la instancia"
   type        = string
-  default     = "t2.large"
+  default     = "t2.medium"
 }
 
 variable "key_file_name" {
