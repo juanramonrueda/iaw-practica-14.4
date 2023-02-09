@@ -6,7 +6,7 @@ RUN apt update && apt install git -y
 
 # Tercera capa del contenedor, clona el directorio y lo mueve al directorio de Nginx
 RUN git clone https://github.com/josejuansanchez/2048.git /tmp/2048 \
-    && cp -R /tmp/2048/* /usr/share/nginx/html
+    && mv /tmp/2048/* /usr/share/nginx/html
 
 # Exposición del puerto 80 del contenedor, opcional
 EXPOSE 80

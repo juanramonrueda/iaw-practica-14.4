@@ -3,6 +3,7 @@ version: '3.8'
 services:
   nginx-2048:
     build: ./nginx
+    restart: always
     networks:
       - frontend-network
 
